@@ -106,5 +106,5 @@ Hence the path to  _`dftb_in.hsd`_ will be `exemple/lengthN/dftb_in.hsd`, you mu
     Then **`resistivity`** is run in `dataAnalysisResults/`, this is where you will find all final results.
 
 ## Credits
-**T. Giverne**, Bordeaux University Institute of Technology, _France_
+**T. Giverne**, Bordeaux University Institute of Technology, _France_  
 **N. A. Nebogatikova**, Novosibirsk State University (NSU), _Russia_
