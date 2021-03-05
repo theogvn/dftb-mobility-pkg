@@ -1,0 +1,50 @@
+Hamiltonian = DFTB {
+  SCC = Yes
+  SCCTolerance = 1e-5
+
+  MaxAngularMomentum {
+    Cu = 'd'
+  }
+
+  SlaterKosterFiles = Type2FileNames{
+    Prefix = "../../slakos/download/matsci/matsci-0-3/"
+    Separator = "-"
+    Suffix = ".skf"
+  }
+
+  Filling = Fermi{
+    Temperature [Kelvin] = 300
+  }
+
+  Electrostatics = Poisson {
+    MinimalGrid [Angstrom] = 0.5 0.5 0.5
+    SavePotential = Yes
+    BuildBulkPotential = No
+    PoissonBox [Angstrom] = 20.0 20.0 20.0
+  }
+
+  Solver = GreensFunction{
+     LocalCurrents=Yes
+     delta = 5e-4
+     verbosity = 100
+     ReadSurfaceGFs = Yes
+  }
+
+  Mixer = Broyden {
+    MixingParameter = 0.05
+  }
+
+}
+
+Analysis = {
+  TunnelingAndDos {
+    EnergyRange [eV] = -8.0  0.0
+    EnergyStep [eV] = 0.02
+    TerminalCurrents{}
+    delta = 5e-4
+  }
+}
+
+Parallel = {
+  UseOMPThreads = Yes
+}
