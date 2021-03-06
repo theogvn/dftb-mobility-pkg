@@ -1,24 +1,30 @@
 #!/usr/bin/env python3
-# =============================================================================#
-#  Package for performing resistance calculation from                          #
-#  DFTB+ transmission output                                                   #
-#  Made by Bordeaux University Institute of Technology (IUT), France and       #
-#  Novosibirsk State University (NSU), Russia                                  #
-#  T. Giverne, Bordeaux IUT    N. A. Nebogatikova, NSU                         #
-#                                                                              #
-#  Optimized for graphene                                                      #
-#                                                                              #
-#  See the LICENSE file for terms of usage and distribution.                   #
-# =============================================================================#
 
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 
 # ______________________________________________________________________________
-# ----------------------- Parsing ----------------------------------------------
+# ------------------------ Display info -------------------------------------- #
+print('''
+# ============================================================================ #
+#  Package for performing resistance calculation with DFTB+                    #
+#  Developed by                                                                #
+#    T. Giverne, Bordeaux University Institute of Technology, _France_         #
+#    N. A. Nebogatikova**, Novosibirsk State University (NSU), _Russia_        #
+#                                                                              #
+#  Optimized for graphene                                                      #
+#                                                                              #
+#  See the LICENSE file for terms of usage and distribution.                   #
+#  https://github.com/theogvn/dftb-mobility-pkg                                #
+# ============================================================================ #
 
-# ----------------------- Setting parser args ----------------------------------
+''')
+
+# ____________________________________________________________________________ #
+# ----------------------- Parsing -------------------------------------------- #
+
+# ----------------------- Setting parser arguments --------------------------- #
 parser = argparse.ArgumentParser(
     description='Compute electrical resistivity by integration of'
                 ' the product of the average transmission and Fermi-Dirac '
@@ -47,7 +53,7 @@ parser.add_argument('-graph', action='store_true',
                     help='show graph')
 args = parser.parse_args()
 
-# ----------------------- Checking for errors ----------------------------------
+# ----------------------- Checking for errors -------------------------------- #
 ErrorFlag = False
 if args.E_fermi is None:
     print('Error you must set a Fermi energy')
@@ -67,77 +73,77 @@ if ErrorFlag:
     exit()
 if args.temperature == 0:
     args.temperature = 1e-10
-# ______________________________________________________________________________
-# ----------------------- setting the ploting space ----------------------------
+# ____________________________________________________________________________ #
+# ----------------------- setting the ploting space -------------------------- #
 plt.style.use('seaborn-whitegrid')
 Fig, (ax1, ax2) = plt.subplots(1, 2)
 
-# ______________________________________________________________________________
-# ----------------------- Loading data -----------------------------------------
+# ____________________________________________________________________________ #
+# ----------------------- Loading data --------------------------------------- #
 
-# ----------------------- From Transmisson -------------------------------------
+# ----------------------- From Transmisson ----------------------------------- #
 transmission = np.loadtxt('transmission.dat')
 trans_E = transmission[:, 0]
 trans_val = transmission[:, 1]
 h = round(abs(trans_E[0]-trans_E[1]), 2)
 
-# ----------------------- Physical parameters ----------------------------------
-normalizer = args.normalizer  # 15.598e-8*8.5961e-8# atm nb   # area in m^2 ____
-E_fermi = args.E_fermi                # Fermis Energy in eV ____________________
-T = args.temperature                  # Temperature in K _______________________
+# ----------------------- Physical parameters -------------------------------- #
+normalizer = args.normalizer  # 15.598e-8*8.5961e-8# atm nb   # area in m^2 __ #
+E_fermi = args.E_fermi                # Fermis Energy in eV __________________ #
+T = args.temperature                  # Temperature in K _____________________ #
 
 L_val = float(args.length_pl[0]*args.num_pl)
 L_unit = args.length[1]
 
-k_B = np.float64(8.617333262145e-05)  # Boltzman constant eV/K _________________
-kT = np.float64(k_B * T)              # saving k_B * T _________________________
+k_B = np.float64(8.617333262145e-05)  # Boltzman constant eV/K _______________ #
+kT = np.float64(k_B * T)              # saving k_B * T _______________________ #
 
-# ______________________________________________________________________________
-# ----------------------- Setting the values for the abscice axis --------------
+# ____________________________________________________________________________ #
+# ----------------------- Setting the values for the abscice axis ------------ #
 xx = []
 [xx.append(E-E_fermi) for E in trans_E]
 
-# ______________________________________________________________________________
-# ----------------------- Computing average transmission -----------------------
+# ____________________________________________________________________________ #
+# ----------------------- Computing average transmission --------------------- #
 meanTrans = np.mean(trans_val)
 
-# ______________________________________________________________________________
-# ----------------------- Computing F-D distribution derivative ----------------
+# ____________________________________________________________________________ #
+# ----------------------- Computing F-D distribution derivative -------------- #
 df = []
 for E in trans_E:
     expo = np.exp((E-E_fermi)/kT)
     y = expo/(kT*(1+expo)**2)
     df.append(y)
 
-# ----------------------- Setting plot for F-D distribution derivative ---------
+# ----------------------- Setting plot for F-D distribution derivative ------- #
 ax1.plot(xx, df, color='red')
 ax1.set(ylabel=f'F-D distribution derivative (df/dE) at {round(T)} K',
         xlabel='E - Ef (eV)')
 
-# ______________________________________________________________________________
-# ----------------------- Computing <T> * df/dE --------------------------------
+# ____________________________________________________________________________ #
+# ----------------------- Computing <T> * df/dE ------------------------------ #
 tobeInteger = []
 for i in range(len(trans_val)):
     tobeInteger.append(meanTrans * df[i])
 
-# ----------------------- Setting plot for <T> * df/dE -------------------------
+# ----------------------- Setting plot for <T> * df/dE ----------------------- #
 ax2.plot(xx, tobeInteger, color='purple')
 ax2.set(ylabel=r'$\langle\mathcal{T}\rangle\cdot\frac{df}{dE}$',
         xlabel="E - Ef (eV)")
 
-# ______________________________________________________________________________
-# ----------------------- Integration module using trapeze method --------------
+# ____________________________________________________________________________ #
+# ----------------------- Integration module using trapeze method ------------ #
 s = 0.0
 G = 0.0
 for i in range(len(tobeInteger)):
     s += tobeInteger[i]
 G = (h/2)*(tobeInteger[0] + 2*s + tobeInteger[-1])
 
-# ----------------------- Computing restistance --------------------------------
+# ----------------------- Computing restistance ------------------------------ #
 R = 1/G
 
-# ______________________________________________________________________________
-# ----------------------- Printing resuslt -------------------------------------
+# ____________________________________________________________________________ #
+# ----------------------- Printing resuslt ----------------------------------- #
 print('')
 print('#'*35, 'RESULTS', '#'*36)
 print('Mean transmission : {:.4e}'.format(meanTrans))
@@ -151,4 +157,4 @@ FileOutput.write("{:.4e}    {:.4e}    {:.4e}    {:.4e}".format(
 plt.savefig(f'../dataAnalysisResults/transmissionGraph_{L_val}{L_unit}.png')
 if args.graph is True:
     plt.show()
-# ------------------------------- The End --------------------------------------
+# ------------------------------- The End ------------------------------------ #

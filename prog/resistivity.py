@@ -1,20 +1,29 @@
 #!/usr/bin/env python3
-# =============================================================================#
-#  Package for performing resistivity calculation from                         #
-#  resistance package output                                                   #
-#  Made by Bordeaux University Institute of Technology (IUT), France and       #
-#  Novosibirsk State University (NSU), Russia                                  #
-#  T. Giverne, Bordeaux IUT    N. A. Nebogatikova, NSU                         #
-#                                                                              #
-#  Optimized for graphene                                                      #
-#                                                                              #
-#  See the LICENSE file for terms of usage and distribution.                   #
-# =============================================================================#
 
 import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
 
+# ____________________________________________________________________________ #
+# ------------------------------ display info -------------------------------- #
+print('''
+# ============================================================================ #
+#  Package for performing resistivity calculation with DFTB+ and results of    #
+#  resistance package output                                                   #
+#  Developed by                                                                #
+#    T. Giverne, Bordeaux University Institute of Technology, _France_         #
+#    N. A. Nebogatikova**, Novosibirsk State University (NSU), _Russia_        #
+#                                                                              #
+#  Optimized for graphene                                                      #
+#                                                                              #
+#  See the LICENSE file for terms of usage and distribution.                   #
+#  https://github.com/theogvn/dftb-mobility-pkg                                #
+# ============================================================================ #
+
+''')
+
+# ____________________________________________________________________________ #
+# ------------------------------ loading data ------------------------------- #
 resistance_content = np.loadtxt('resistance_out.dat')
 # L_val, R, T, meanTrans
 L = resistance_content[:, 0]
@@ -26,7 +35,8 @@ rho = stats.linregress(L, R)[0]
 r_value = stats.linregress(L, R)[2]
 sigma = 1/rho
 
-
+# ____________________________________________________________________________ #
+# ------------------------------ display results ----------------------------- #
 print('R value     : {:.4e}\n'.format(r_value))
 print('Resistivity : {:.4e} ohm.m'.format(rho))
 print('conductivity: {:.4e} S/m'.format(sigma))
