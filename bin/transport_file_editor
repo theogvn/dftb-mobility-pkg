@@ -27,10 +27,10 @@ for i in range(len(dftb_content)):
     if 'Task' in dftb_content[i]:
         taskFlag = True
 
-    if 'Id = "source"' in dftb_content[i]:
+    if 'Id = "source"' in dftb_content[i] and taskFlag is False:
         sourceFlag = True
 
-    if 'Id = "drain"' in dftb_content[i]:
+    if 'Id = "drain"' in dftb_content[i] and taskFlag is False:
         drainFlag = True
 
     if 'Hamiltonian = DFTB' in dftb_content[i]:

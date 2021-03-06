@@ -7,8 +7,8 @@ Hamiltonian = DFTB {
   }
 
   SlaterKosterFiles = Type2FileNames{
-    Prefix = "../../slakos/download/matsci/matsci-0-3/"
-    Separator = "-"
+    Prefix = "../../slakos/download/matsci/matsci-0-3/" # You may have to change
+    Separator = "-"                                     # this PATH
     Suffix = ".skf"
   }
 

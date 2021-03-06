@@ -6,7 +6,7 @@ do
   # setup the dftb_in.hsd for Transport
   cat dftb_in.hsd > dftb_in_contacts.hsd # duplicate dftb_in file
   transport_file_editor
-  #dftb+ | tee output_transport
+  dftb+ | tee output_transport
   cd ..
 done
 echo "transport done"
