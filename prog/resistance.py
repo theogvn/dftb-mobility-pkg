@@ -152,7 +152,7 @@ print('Resistance  : {:.4e} ohm'.format(R))
 print('Conductance : {:.4e} S'.format(G))
 
 FileOutput = open('../dataAnalysisResults/resistance_out.dat', 'a')
-FileOutput.write("{:.4e}    {:.4e}    {:.4e}    {:.4e}".format(
+FileOutput.write("{:.4e}    {:.4e}    {:.4e}    {:.4e}\n".format(
     L_val, R, T, meanTrans))
 plt.savefig(f'../dataAnalysisResults/transmissionGraph_{L_val}{L_unit}.png')
 if args.graph is True:
