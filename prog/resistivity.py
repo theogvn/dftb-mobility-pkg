@@ -63,7 +63,5 @@ if r_value <= 0.70:
     print('\n\n')
     print('''/!\\ given the R value you are not in the presence of a ohmic
     behaviour, hence the results are not trustworthy /!\\''')
-    plt.style.use('seaborn-whitegrid')
-    plt.plot(L, R)
     plt.show()
 plt.savefig('resistance_length-Graph.png')
