@@ -41,11 +41,11 @@ parser.add_argument('-Ef', '--fermi-energy',
 parser.add_argument('-normalizer', dest='normalizer',
                     type=float, default=1,
                     help='set a normalizer for DOS value (default: 1)')
-parser.add_argument('-L', dest='length_pl', nargs=2, default=None,
+parser.add_argument('-L', dest='length_pl', nargs=2, default=None, type=str,
                     help='''length of the pl along the transport direction
                              syntax : <value> <unit> (default: None)
                              (is required)''')
-parser.add_argument('-npl', dest='num_pl', nargs=1, default=None,
+parser.add_argument('-npl', dest='num_pl', default=None, type=str,
                     help='number of pl in the device (default: None)'
                     ' (is required)')
 parser.add_argument('-graph', action='store_true',
@@ -65,7 +65,7 @@ if None in args.length_pl:
     print('''Error you must set a value and unit for the length of the pl along
              the transport direction''')
     ErrorFlag = True
-if None in args.num_pl:
+if args.num_pl is None:
     print('Error you must set the number of pl in your device')
     ErrorFlag = True
 if ErrorFlag:
@@ -92,8 +92,8 @@ normalizer = args.normalizer  # 15.598e-8*8.5961e-8# atm nb   # area in m^2 __ #
 E_fermi = args.E_fermi                # Fermis Energy in eV __________________ #
 T = args.temperature                  # Temperature in K _____________________ #
 
-L_val = float(args.length_pl[0]*args.num_pl)
-L_unit = args.length[1]
+L_val = float(args.length_pl[0]) * int(args.num_pl)
+L_unit = args.length_pl[1]
 
 k_B = np.float64(8.617333262145e-05)  # Boltzman constant eV/K _______________ #
 kT = np.float64(k_B * T)              # saving k_B * T _______________________ #
