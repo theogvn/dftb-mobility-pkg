@@ -1,6 +1,6 @@
 # dftb-mobility-pkg
 
-Package for performing electron mobility calculation with DFTB+, using Density Of States and Transmission/
+Package for performing electron mobility calculation with [DFTB+](https://github.com/dftbplus/dftbplus "DFTB+ GitHub page"), using Density Of States and Transmission/
 
 _See the LICENSE for terms of usage and distribution._
 
