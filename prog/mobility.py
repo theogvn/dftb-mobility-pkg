@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 import numpy as np
@@ -10,8 +10,8 @@ print('''
 # ============================================================================ #
 #  Package for performing mobility calculation with DFTB+                      #
 #  Developed by                                                                #
-#    T. Giverne, Bordeaux University Institute of Technology, _France_         #
-#    N. A. Nebogatikova**, Novosibirsk State University (NSU), _Russia_        #
+#    T. Giverne, Bordeaux University Institute of Technology, France           #
+#    N. A. Nebogatikova, Novosibirsk State University (NSU), Russia            #
 #                                                                              #
 #  Optimized for graphene                                                      #
 #                                                                              #
