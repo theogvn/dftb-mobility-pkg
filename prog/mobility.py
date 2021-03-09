@@ -175,7 +175,7 @@ if args.all_occupied_states is True:
     print('\nnumber of valence electons in the tested system : {:.0f}'.format(
         nChargeCarrier))
 else:
-    print('\n######################## RESULTS ################################')
+    print('#'*35, 'RESULTS', '#'*36)
     print('charge carrier density :  {:.4e} (cm-3 ?)'.format(nChargeCarrier))
     print('mobility               :  {:.4e} cm2/(V.s)'.format(mobility))
 
