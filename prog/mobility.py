@@ -87,24 +87,19 @@ h = round(abs(dos_E[0]-dos_E[1]), 2)
 
 # ----------------------- Physical parameters -------------------------------- #
 rho = np.float64(args.resistivity)      # Resistivity in ohm.cm ______________ #
-E_fermi = args.E_fermi                  # Fermis Energy in eV ________________ #
+E_fermi = round(args.E_fermi, 2)        # Fermis Energy in eV ________________ #
 T = args.temperature                    # Temperature in K ___________________ #
 
 k_B = np.float64(8.617333262145e-05)  # Boltzman constant eV/K _______________ #
 e = np.float64(1.602176634e-19)       # elementary charge in C _______________ #
 kT = np.float64(k_B * T)              # saving k_B * T _______________________ #
 
+bias = args.bias  # 1e25
+
 # ____________________________________________________________________________ #
 # ----------------------- Setting the values for the abscice axis ------------ #
 xx = []
-[xx.append(E-E_fermi) for E in dos_E]
-
-# ____________________________________________________________________________ #
-# ----------------------- Normalizing DOS values ----------------------------- #
-bias = args.bias  # 1e25
-if args.all_occupied_states is not True:
-    for i in range(len(dos_val)):
-        dos_val[i] = dos_val[i]/bias  # possibly going from e/eV/nm3 -> e/eV/cm3
+[xx.append(round(E-E_fermi, 2)) for E in dos_E]
 
 # ____________________________________________________________________________ #
 # ----------------------- Setting plot for normalized values ----------------- #
@@ -143,18 +138,21 @@ s = 0.0
 nChargeCarrier = 0.0
 flag = 0
 integerded = []
-xx2 = []
+
 for i in range(len(to_be_integered)):
     if args.all_occupied_states is True:
         s += to_be_integered[i]
     else:
         if xx[i] == 0:
             flag = i
+            s += to_be_integered[i]
         if xx[i] > 0:
             s += to_be_integered[i]
 
-nChargeCarrier = 2*((h/2)*(to_be_integered[0] + 2*s + to_be_integered[-1]))
-if args.verbose:
+nChargeCarrier = 2*((h/2)*(to_be_integered[0] + 2*s + 0))
+nChargeCarrier = nChargeCarrier/bias
+
+if args.verbose is True:
     print('lower integration limit: ', dos_E[flag], ' eV')
 
 # ----------------------- Setting plot for DOS * F-D distribution ------------ #
