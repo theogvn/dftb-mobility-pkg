@@ -151,7 +151,7 @@ for i in range(len(to_be_integered)):
 
 nChargeCarrier = 2*((h/2)*(to_be_integered[0] + 2*s + 0))
 nChargeCarrier = nChargeCarrier/bias
-
+print('\n', nChargeCarrier, '\n')
 if args.verbose is True:
     print('lower integration limit: ', dos_E[flag], ' eV')
 
@@ -167,14 +167,14 @@ mobility = 1/(e * nChargeCarrier * rho)
 print('\nTemperature :    {:.0f} K '.format(T))
 print('Ef          :    {:.2f} eV'.format(E_fermi))
 print('Resistivity :    {:.2e} ohm.cm'.format(rho))
-print('DOS bias    :    {:.2e}'.format(bias))
+print('DOS bias    :    {:.2e}\n'.format(bias))
 
 if args.all_occupied_states is True:
     print('\nnumber of valence electons in the tested system : {:.0f}'.format(
         nChargeCarrier))
 else:
     print('#'*35, 'RESULTS', '#'*36)
-    print('charge carrier density :  {:.4e} (cm-3 ?)'.format(nChargeCarrier))
+    print('\ncharge carrier density :  {:.4e} (cm-3 ?)'.format(nChargeCarrier))
     print('mobility               :  {:.4e} cm2/(V.s)'.format(mobility))
 
     FileOutput = open('mobility.dat', 'w')
