@@ -45,13 +45,13 @@ parser.add_argument('-rho', '--resistivity', dest='resistivity', type=float,
                     default=None,
                     help='resistivity of the material in ohm.cm (is required)')
 parser.add_argument('-verbose', action='store_true',
-                    default='false', dest='verbose',
+                    default='False', dest='verbose',
                     help='show additional information')
 parser.add_argument('-graph', action='store_true',
                     default='False', dest='graph',
                     help='show graphs')
 parser.add_argument('-AllOccupiedStates', action='store_true',
-                    default='false', dest='all_occupied_states',
+                    default='False', dest='all_occupied_states',
                     help='integer on whole energy and gives the number of '
                     'valence electrons, bias is then ignored')
 args = parser.parse_args()
@@ -149,7 +149,7 @@ for i in range(len(to_be_integered)):
         if xx[i] > 0:
             s += to_be_integered[i]
 
-nChargeCarrier = 2*((h/2)*(to_be_integered[0] + 2*s + 0))
+nChargeCarrier = 2*((h/2)*(to_be_integered[flag] + 2*s + 0))
 nChargeCarrier = nChargeCarrier/bias
 print('\n', nChargeCarrier, '\n')
 if args.verbose is True:
