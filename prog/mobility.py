@@ -149,8 +149,8 @@ for i in range(len(to_be_integered)):
         if xx[i] > 0:
             s += to_be_integered[i]
 
-nChargeCarrier = 2*((h/2)*(to_be_integered[flag] + 2*s + 0))
-nChargeCarrier = nChargeCarrier/bias
+Intergal = ((h/2)*(to_be_integered[flag] + 2*s + 0))
+nChargeCarrier = 2*Intergal/bias
 print('\n', nChargeCarrier, '\n')
 if args.verbose is True:
     print('lower integration limit: ', dos_E[flag], ' eV')
@@ -171,7 +171,7 @@ print('DOS bias    :    {:.2e}\n'.format(bias))
 
 if args.all_occupied_states is True:
     print('\nnumber of valence electons in the tested system : {:.0f}'.format(
-        nChargeCarrier))
+        2*Intergal))
 else:
     print('#'*35, 'RESULTS', '#'*36)
     print('\ncharge carrier density :  {:.4e} (cm-3 ?)'.format(nChargeCarrier))
