@@ -51,6 +51,11 @@ parser.add_argument('-npl', dest='num_pl', default=None, type=str,
 parser.add_argument('-graph', action='store_true',
                     default='false', dest='graph',
                     help='show graph')
+parser.add_argument('-file', action='store', type=str,
+                    default='transmission.dat', dest='file_path',
+                    help='path to the transmission file can be use if the file '
+                    'is not named transmission.dat (default: transmission.dat)')
+
 args = parser.parse_args()
 
 # ----------------------- Checking for errors -------------------------------- #
@@ -82,7 +87,7 @@ Fig, (ax1, ax2) = plt.subplots(1, 2)
 # ----------------------- Loading data --------------------------------------- #
 
 # ----------------------- From Transmisson ----------------------------------- #
-transmission = np.loadtxt('transmission.dat')
+transmission = np.loadtxt(args.file_path)
 trans_E = transmission[:, 0]
 trans_val = transmission[:, 1]
 h = round(abs(trans_E[0]-trans_E[1]), 2)
