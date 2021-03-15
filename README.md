@@ -25,7 +25,7 @@ You can also call the python files using the **`python`** command but then make 
 
 ### Basic usage
 This package can compute electron mobility using DFTB+ outputs, it uses DOS and Transmission data.
-You can also use it with DOS and transmission from other software but make sure the DOS data is name _`DOS.dat`_ and the transmission _`transmission.dat`_.
+You can also use it with DOS and transmission from other software but make sure the DOS to specifie the right names for _`dos.dat`_ and _`transmission.dat`_.
 
 If you use the executables, we advise starting by running:
 ```bash
