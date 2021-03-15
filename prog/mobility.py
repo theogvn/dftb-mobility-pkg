@@ -39,11 +39,11 @@ parser.add_argument('-bias', '-volume', '-surface', '-lenght', dest='bias',
                     help='bias for normalizing DOS')
 parser.add_argument('-Ef', '--fermi-energy',
                     dest='E_fermi', type=float, default=None,
-                    help='fermi energy in eV (is required) | starts integration'
+                    help='fermi energy in eV (REQUIRED) | starts integration'
                     ' at this value')
 parser.add_argument('-rho', '--resistivity', dest='resistivity', type=float,
                     default=None,
-                    help='resistivity of the material in ohm.cm (is required)')
+                    help='resistivity of the material in ohm.cm (REQUIRED)')
 parser.add_argument('-verbose', action='store_true',
                     default='False', dest='verbose',
                     help='show additional information')
@@ -54,6 +54,11 @@ parser.add_argument('-AllOccupiedStates', action='store_true',
                     default='False', dest='all_occupied_states',
                     help='integer on whole energy and gives the number of '
                     'valence electrons, bias is then ignored')
+parser.add_argument('-file', action='store', type=str,
+                    default='dos.dat', dest='file_path',
+                    help='path to the DOS file, can be use if the file is not'
+                    ' name dos.dat (default: dos.dat)')
+
 args = parser.parse_args()
 
 # ----------------------- Checking for errors -------------------------------- #
@@ -80,7 +85,7 @@ Fig, (ax1, ax2, ax3) = plt.subplots(1, 3)
 # ----------------------- Loading data --------------------------------------- #
 
 # ----------------------- From DOS ------------------------------------------- #
-dos = np.loadtxt('dos.dat')
+dos = np.loadtxt(args.file_path)
 dos_E = dos[:, 0]
 dos_val = dos[:, 1]
 h = round(abs(dos_E[0]-dos_E[1]), 2)
@@ -109,9 +114,9 @@ ax1.set(ylabel='DOS (g(E))', xlabel='E-Ef (eV)')
 # ____________________________________________________________________________ #
 # ----------------------- Printing complementary information ----------------- #
 if args.verbose is True:
-    print('kT    : ', kT, ' eV')
-    print('Ef/kT : ', E_fermi/kT)
-    print('step  : ', h)
+    print('kT    :', kT, 'eV')
+    print('Ef/kT :', E_fermi/kT)
+    print('step  :', h)
 
 # ____________________________________________________________________________ #
 # ----------------------- Computing Fermi-Dirac distribution ----------------- #
@@ -151,7 +156,6 @@ for i in range(len(to_be_integered)):
 
 Intergal = ((h/2)*(to_be_integered[flag] + 2*s + 0))
 nChargeCarrier = 2*Intergal/bias
-print('\n', nChargeCarrier, '\n')
 if args.verbose is True:
     print('lower integration limit: ', dos_E[flag], ' eV')
 
@@ -174,8 +178,8 @@ if args.all_occupied_states is True:
         2*Intergal))
 else:
     print('#'*35, 'RESULTS', '#'*36)
-    print('\ncharge carrier density :  {:.4e} (cm-3 ?)'.format(nChargeCarrier))
-    print('mobility               :  {:.4e} cm2/(V.s)'.format(mobility))
+    print('\ncharge carrier density : {:.4e} (cm-3 ?)'.format(nChargeCarrier))
+    print('mobility               : {:.4e} cm2/(V.s)'.format(mobility))
 
     FileOutput = open('mobility.dat', 'w')
     FileOutput.write('#carrierDensity    mobility\n')
