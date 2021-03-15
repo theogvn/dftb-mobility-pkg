@@ -1,2 +1,3 @@
 * taking into account length units in resistivity
 * change graph layout of mobility -> DOS & DOS*F-D on the same graph & no F-D
+* Implement mobility from Band structure i.e. energy gradient E(x,y,z)
