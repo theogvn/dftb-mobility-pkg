@@ -26,8 +26,8 @@ print('''
 
 # ----------------------- Setting parser arguments --------------------------- #
 parser = argparse.ArgumentParser(
-    description='Compute electrical resistivity by integration of'
-                ' the product of the average transmission and Fermi-Dirac '
+    description='Compute electrical resistivity by integration of '
+                'the product of the average transmission and Fermi-Dirac '
                 'distribution derivative.'
                 'Integration is compute with the trapeze methode')
 parser.add_argument('-T', '--Temperature', dest='temperature',
@@ -38,9 +38,6 @@ parser.add_argument('-Ef', '--fermi-energy',
                     dest='E_fermi', type=float, default=None,
                     help='fermi energy in eV (is required) | starts integration'
                     ' at this value')
-parser.add_argument('-normalizer', dest='normalizer',
-                    type=float, default=1,
-                    help='set a normalizer for DOS value (default: 1)')
 parser.add_argument('-L', dest='length_pl', nargs=2, default=None, type=str,
                     help='''length of the pl along the transport direction
                              syntax : <value> <unit> (default: None)
@@ -62,9 +59,6 @@ args = parser.parse_args()
 ErrorFlag = False
 if args.E_fermi is None:
     print('Error you must set a Fermi energy')
-    ErrorFlag = True
-if args.normalizer is None:
-    print('Error you must set a normalizer')
     ErrorFlag = True
 if None in args.length_pl:
     print('''Error you must set a value and unit for the length of the pl along
@@ -93,7 +87,6 @@ trans_val = transmission[:, 1]
 h = round(abs(trans_E[0]-trans_E[1]), 2)
 
 # ----------------------- Physical parameters -------------------------------- #
-normalizer = args.normalizer  # 15.598e-8*8.5961e-8# atm nb   # area in m^2 __ #
 E_fermi = args.E_fermi                # Fermis Energy in eV __________________ #
 T = args.temperature                  # Temperature in K _____________________ #
 
