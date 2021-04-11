@@ -9,11 +9,11 @@ import matplotlib.pyplot as plt
 print('''
 # ============================================================================ #
 #  Package for performing mobility calculation with DFTB+                      #
-#  Developed by                                                                #
+#                                                                              #
+#  When publishing results obtained with DFTB+, please cite                    #
 #    T. Giverne, Bordeaux University Institute of Technology, France           #
 #    N. A. Nebogatikova, Novosibirsk State University (NSU), Russia            #
 #                                                                              #
-#  Optimized for graphene                                                      #
 #                                                                              #
 #  See the LICENSE file for terms of usage and distribution.                   #
 #  https://github.com/theogvn/dftb-mobility-pkg                                #
