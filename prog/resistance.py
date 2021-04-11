@@ -13,7 +13,6 @@ print('''
 #    T. Giverne, Bordeaux University Institute of Technology, France           #
 #    N. A. Nebogatikova, Novosibirsk State University (NSU), Russia            #
 #                                                                              #
-#  Optimized for graphene                                                      #
 #                                                                              #
 #  See the LICENSE file for terms of usage and distribution.                   #
 #  https://github.com/theogvn/dftb-mobility-pkg                                #
@@ -42,9 +41,6 @@ parser.add_argument('-L', dest='length_pl', nargs=2, default=None, type=str,
                     help='''length of the pl along the transport direction
                              syntax : <value> <unit> (default: None)
                              (REQUIRED)''')
-parser.add_argument('-d', dest='depth', nargs=1, default=None, type=float,
-                    help='''depth of the PL in same unit as the lenght
-                            (REQUIRED)''')
 parser.add_argument('-npl', dest='num_pl', default=None, type=str,
                     help='number of pl in the device (default: None)'
                     ' (REQUIRED)')
@@ -67,14 +63,11 @@ if None in args.length_pl:
     print('''Error you must set a value and unit for the length of the pl along
              the transport direction''')
     ErrorFlag = True
-if args.depth is None:
-    print("you must set a value for the PL depth")
-    ErrorFlag = True
 if args.num_pl is None:
     print('Error you must set the number of pl in your device')
     ErrorFlag = True
 if ErrorFlag:
-    print('-h for help')
+    print('- for help')
     exit()
 if args.temperature == 0:
     args.temperature = 1e-10
@@ -90,19 +83,18 @@ Fig, (ax1, ax2) = plt.subplots(1, 2)
 transmission = np.loadtxt(args.file_path)
 trans_E = transmission[:, 0]
 trans_val = transmission[:, 1]
-h = round(abs(trans_E[0]-trans_E[1]), 2)
+d = round(abs(trans_E[0]-trans_E[1]), 2)
 
 # ----------------------- Physical parameters -------------------------------- #
 E_fermi = args.E_fermi                # Fermis Energy in eV __________________ #
 T = args.temperature                  # Temperature in K _____________________ #
-d = args.depth                        # Depth in lenght unit _________________ #
 L_val = float(args.length_pl[0]) * int(args.num_pl)
 L_unit = args.length_pl[1]
 
 k_B = np.float64(8.617333262145e-05)  # Boltzman constant eV/K _______________ #
 e = np.float64(1.602176634e-19)       # elementary charge in C _______________ #
 kT = np.float64(k_B * T)              # saving k_B * T _______________________ #
-
+h = np.float64(4.135667696e-15)       # planck constant ______________________ #
 # ____________________________________________________________________________ #
 # ----------------------- Setting the values for the abscice axis ------------ #
 xx = []
@@ -129,7 +121,7 @@ ax1.set(ylabel=f'F-D distribution derivative (df/dE) at {round(T)} K',
 # ----------------------- Computing <T> * df/dE ------------------------------ #
 tobeInteger = []
 for i in range(len(trans_val)):
-    tobeInteger.append(meanTrans * df[i])
+    tobeInteger.append(meanTrans * -df[i])
 
 # ----------------------- Setting plot for <T> * df/dE ----------------------- #
 ax2.plot(xx, tobeInteger, color='purple')
@@ -142,10 +134,10 @@ s = 0.0
 intergal = 0.0
 for i in range(len(tobeInteger)):
     s += tobeInteger[i]
-intergal = (h/2)*(tobeInteger[0] + 2*s + tobeInteger[-1])
+intergal = (d/2)*(tobeInteger[0] + 2*s + tobeInteger[-1])
 
 # ----------------------- Computing restistance ------------------------------ #
-G = (2*e ^ 2) / d * intergal
+G = (2 * e**2) / h * intergal
 R = 1/G
 
 # ____________________________________________________________________________ #
