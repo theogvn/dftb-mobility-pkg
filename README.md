@@ -108,5 +108,6 @@ Hence the path to  _`dftb_in.hsd`_ will be `exemple/lengthN/dftb_in.hsd`, you mu
 
 ## Credits
 When publishing results obtained with `dftb-mobility-pkg`, please cite the following
+
 **T. Giverne**, Bordeaux University Institute of Technology, _France_  
 **N. A. Nebogatikova**, Novosibirsk State University (NSU), _Russia_
