@@ -116,5 +116,5 @@ When publishing results obtained with `dftb-mobility-pkg`, please cite:
 *   **T. Giverne**, Bordeaux University Institute of Technology, _France_  
 *   **N. A. Nebogatikova**, Novosibirsk State University (NSU), _Russia_
 
- **T. Giverne**.         *theo.giverne@gmail.com
- **N. A. Nebogatikova**  *nanadonebo@gmail.com*
+ **T. Giverne**.         *theo.giverne@gmail.com*  
+ **N. A. Nebogatikova**  *nanadonebo@gmail.com*
