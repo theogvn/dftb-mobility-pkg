@@ -3,8 +3,12 @@
 Package for performing electron mobility calculation with [DFTB+](https://github.com/dftbplus/dftbplus "DFTB+ GitHub page"), using Density Of States and Transmission
 In the coming updates this package will support the calculation of mobility with the band structure.
 
-_See the LICENSE for terms of usage and distribution._
+*See the LICENSE for terms of usage and distribution.*
+## Context
 
+This package was developed during a part of a 3 months internship at Rzhanov Institute of Semiconductors Physics of the SB RAS, for a bachelor's degree of Material Science at Bordeaux Institute of Technologies (IUT de Bordeaux).
+
+For more information about the internship and *access to the report*, please contact us at *theo.giverne@gmail.com* or *nanadonebo@gmail.com* 
 ## /!\\ Warning /!\\
 **You may take the results with caution**
 
@@ -106,8 +110,11 @@ Hence the path to  _`dftb_in.hsd`_ will be `exemple/lengthN/dftb_in.hsd`, you mu
 
     Then **`resistivity`** is run in `dataAnalysisResults/`, this is where you will find all final results.
 
-## Credits
+## Credits & Contacts
 When publishing results obtained with `dftb-mobility-pkg`, please cite:
 
 *   **T. Giverne**, Bordeaux University Institute of Technology, _France_  
 *   **N. A. Nebogatikova**, Novosibirsk State University (NSU), _Russia_
+
+ **T. Giverne**.         *theo.giverne@gmail.com
+ **N. A. Nebogatikova**  *nanadonebo@gmail.com*
