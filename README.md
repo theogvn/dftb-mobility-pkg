@@ -6,7 +6,7 @@ This package is not likely to recieve further updates. Nethertheless, everyone i
 *See the LICENSE for terms of usage and distribution.*
 ## Context
 
-This package was developed during a part of a 3 months internship at Rzhanov Institute of Semiconductors Physics of the SB RAS, for a bachelor's degree of Material Science at Bordeaux Institute of Technologies (IUT de Bordeaux).
+This package was developed during a part of a 3 months internship at Rzhanov Institute of Semiconductors Physics of the SB RAS, for a bachelor's degree of Material Science and Engineering at Bordeaux Institute of Technologies (IUT de Bordeaux). You can find the report made for the degree in the restitution folder.
 
 For more information about the internship and *access to the report*, please contact us at *theo.giverne@gmail.com* or *nanadonebo@gmail.com* 
 ## /!\\ Warning /!\\
